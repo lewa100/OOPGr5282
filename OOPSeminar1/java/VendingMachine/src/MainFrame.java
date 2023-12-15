@@ -1,112 +1,111 @@
+import Domen.Product;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
-    
-    
+
+
     final private Font mainFont = new Font("Segoe print", Font.BOLD, 18);
-    JTextField tfFirstName, tfLastName;
-    
-    
-    JLabel lbWelcome;
+    JTextField tfCash;
+    JList<String> prodlist;
 
-    public void initialize() {
-       
-        
-        JLabel lbFirstName = new JLabel("First Name");
-        lbFirstName.setFont(mainFont);
+    JLabel lbMonitor;
 
-        tfFirstName = new JTextField();
-        tfFirstName.setFont(mainFont);
-        
-        
-        JLabel lbLastName = new JLabel("First Name");
-        lbLastName.setFont(mainFont);
+    public void initialize(String[] inList) {
+        JLabel lbProductList = new JLabel("Product List");
+        lbProductList.setFont(mainFont);
 
-       
-        
-        tfLastName = new JTextField();
-        tfLastName.setFont(mainFont);
+        prodlist = new JList<String>();
+        prodlist.setListData(inList);
+        prodlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        
-        
+        JLabel lbCash = new JLabel("Enter cash:");
+        lbCash.setFont(mainFont);
+
+        tfCash = new JTextField("0");
+        tfCash.setFont(mainFont);
+
         JPanel formPanel = new JPanel();
-        formPanel.setLayout(new GridLayout(4, 1, 5, 5));
-        formPanel.add(lbFirstName);
-        formPanel.add(tfFirstName);
-        formPanel.add(lbLastName);
-        formPanel.add(tfLastName);
-        
-        
-        lbWelcome = new JLabel();
-        lbWelcome.setFont(mainFont);
+        formPanel.setLayout(new GridLayout(2, 2, 1, 1));
+        formPanel.add(lbProductList);
+        var scrollPane = new JScrollPane(prodlist);
+        formPanel.add(scrollPane);
+        formPanel.add(lbCash);
+        formPanel.add(tfCash);
 
-        
-        
-        JButton btnOk = new JButton("Ok");
-        btnOk.setFont(mainFont);
-        btnOk.addActionListener(new ActionListener() {
+        tfCash.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+                    e.consume();  // if it's not a number, ignore the event
+                }
+            }
+        });
+
+        lbMonitor = new JLabel();
+        lbMonitor.setFont(mainFont);
+
+
+
+        JButton btnBuy = new JButton("купить товар");
+        btnBuy.setFont(mainFont);
+        btnBuy.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-                
-                String firstName = tfFirstName.getText();
-                String lastName = tfFirstName.getText();
-                lbWelcome.setText("Hello " + firstName + " " + lastName);
-                
-                
+                int cash = Integer.parseInt(tfCash.getText());
+                if (cash <= 0) {
+                    lbMonitor.setText("You don't have any money.");
+                    return;
+                }
+                lbMonitor.setText("You want to buy product by " + cash + " money.");
             }
 
         });
 
-       
         JButton btnClear = new JButton("Clear");
         btnClear.setFont(mainFont);
         btnClear.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-               
-                tfFirstName.setText("");
-                tfFirstName.setText("");
-                lbWelcome.setText("");
-                
+                tfCash.setText("");
+                lbMonitor.setText("");
+
             }
 
         });
 
-        
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1, 2, 5, 5));
-        buttonPanel.add(btnOk);
+        buttonPanel.add(btnBuy);
         buttonPanel.add(btnClear);
 
-        
+
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setBackground(new Color(128, 128, 255));
-        
+
         mainPanel.add(formPanel, BorderLayout.NORTH);
-
-        
-        mainPanel.add(lbWelcome, BorderLayout.CENTER);
-
-        
+        mainPanel.add(lbMonitor, BorderLayout.CENTER);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-       
+
         add(mainPanel);
 
-        
+
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         formPanel.setOpaque(false);
         buttonPanel.setOpaque(false);
 
-        
+
         setTitle("VendingMachines");
         setSize(500, 600);
         setMaximumSize(new Dimension(300, 400));
@@ -114,10 +113,9 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] arg)
-    {
-        MainFrame myFrame = new MainFrame();
-        myFrame.initialize();
-    }
-
+//    public static void main(String[] arg)
+//    {
+//        MainFrame myFrame = new MainFrame();
+//        myFrame.initialize();
+//    }
 }
