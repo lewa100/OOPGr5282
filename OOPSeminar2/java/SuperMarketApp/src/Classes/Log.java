@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Log {
-    private static String fileName = "log.txt";
+    private static String fileName = "default_name.txt";
 
     /**
      * Метод для записи строки в файл
@@ -17,5 +17,13 @@ public class Log {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Метод для установки имени лог-файла
+     * @param name
+     */
+    public static void setLogName(String name){
+        fileName = name;
     }
 }

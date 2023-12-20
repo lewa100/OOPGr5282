@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class App {
     public static void main(String[] args) throws Exception {
+        Log.setLogName("log.txt");
         Market magnit = new Market();
 
         iActorBehaviour client1 = new OrdinaryClient("boris");
