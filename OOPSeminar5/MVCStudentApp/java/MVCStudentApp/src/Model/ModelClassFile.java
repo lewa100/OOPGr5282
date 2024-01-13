@@ -59,11 +59,6 @@ public class ModelClassFile implements iGetModel {
         return students;
     }
 
-    @Override
-    public HashMap<Integer, Student> getHashStudents() {
-        return null;
-    }
-
     /**
      * Удаление студента из файла по  ID
      * @param id

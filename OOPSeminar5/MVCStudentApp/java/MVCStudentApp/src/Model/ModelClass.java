@@ -27,10 +27,6 @@ public class ModelClass implements iGetModel {
         return students;
     }
 
-    @Override
-    public HashMap<Integer, Student> getHashStudents() {
-        return null;
-    }
 
     /**
      * Удаление студента из списка по его ID
