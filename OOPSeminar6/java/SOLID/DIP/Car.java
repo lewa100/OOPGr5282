@@ -1,8 +1,8 @@
 package DIP;
 
 public class Car {
-    private iPetrolEngine engine;
-    public Car(iPetrolEngine engine) {
+    private iEngine engine;
+    public Car(iEngine engine) {
         this.engine = engine;
     }
 

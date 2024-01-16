@@ -1,5 +1,5 @@
 package DIP;
 
-public interface iPetrolEngine {
+public interface iEngine {
     public void start();
 }
